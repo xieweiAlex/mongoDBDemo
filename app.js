@@ -27,24 +27,15 @@ app.use('/', index);
 app.use('/users', users);
 
 
-var db = mango.db("mongodb://localhost:27017/db", {native_parser: true});
+var db = mango.db("mongodb://localhost:27017/homework7", {native_parser: true});
 
 db.bind('homework7');
 
-db.collection('homework7').insertOne({name: "Guns N Roses"}, function(err, result) {
-    if (err) throw err;
-    console.log('something.....');
-    if (result) console.log('Added!');
-
-});
-
 db.homework7.find().toArray(function (err, iterms) {
     if (err) throw err;
-    console.log('something: ' + iterms.length);
     iterms.forEach(ob => console.log(ob));
     db.close();
 });
-
 
 
 // catch 404 and forward to error handler
@@ -66,3 +57,5 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app.listen('3030');
+
+

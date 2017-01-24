@@ -27,13 +27,22 @@ app.use('/', index);
 app.use('/users', users);
 
 
+const crypto = require('crypto');
 var db = mango.db("mongodb://localhost:27017/homework7", {native_parser: true});
 
 db.bind('homework7');
 
+
 db.homework7.find().toArray(function (err, iterms) {
     if (err) throw err;
-    iterms.forEach(ob => console.log(ob));
+    var msg = iterms[0]['message'];
+    console.log(msg);
+
+    // update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
+    const decipher = crypto.createDecipher('aes256', 'asaadsaad');
+    var str = decipher.update(msg, 'hex', 'utf8' );
+    console.log("deciphered str: " + str);
+
     db.close();
 });
 

@@ -32,20 +32,20 @@ var db = mango.db("mongodb://localhost:27017/homework7", {native_parser: true});
 
 db.bind('homework7');
 
-
 db.homework7.find().toArray(function (err, iterms) {
     if (err) throw err;
     var msg = iterms[0]['message'];
     console.log(msg);
 
+
     // update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
     const decipher = crypto.createDecipher('aes256', 'asaadsaad');
-    var str = decipher.update(msg, 'hex', 'utf8' );
+    var str = decipher.update(msg, 'hex', 'utf8');
     console.log("deciphered str: " + str);
 
+    app.locals.cipher = str;
     db.close();
 });
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
